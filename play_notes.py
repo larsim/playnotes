@@ -5,7 +5,7 @@ p = pyaudio.PyAudio()
 
 volume = 1.0    # range [0.0, 1.0]
 fs = 44100       # sampling rate, Hz, must be integer
-duration = 0.4   # in seconds, may be float
+duration = 0.2   # in seconds, may be float
 f = 440.0        # sine frequency, Hz, may be float
 
 # generate samples, note conversion to float32 array
@@ -19,7 +19,10 @@ stream = p.open(format=pyaudio.paFloat32,
 
 notes = {"F#3": 185.00}
 notes["b3"] = 246.94
+notes["b4"] = 466.16
+notes["g4"] = 369.99
 notes["d4"] = 293.66
+notes["e4"] = 329.63
 notes["F#4"] =  369.99
 notes["a4"] = 440.00
 notes["a3"] = 220.00
@@ -33,6 +36,35 @@ notes["D#3"] = 155.56
 notes["a2"] = 110.00
 notes["A#2"] = 116.54
 notes["G#3"] = 207.65
+notes["c5"] = 523.25
+notes["d5"] = 587.33
+notes["e5"] = 659.25
+notes["G#4"] = 392.00
+notes["D#5"] = 622.25
+notes["f5"] = 698.46
+notes["f4"] = 349.23
+
+def valkyries():
+    #play("4|--------d__---------d---d-|\n3|F-b--Fb-------b__------b--|\n")
+    #play("4|F__---d__---F--dF-a__------|\n3|------------------------a__|\n")
+    #play("4|---d---d-F__---------d---|\n3|------a------------a----a|\n")
+    #play("4|d-F__---d__---F--dF-a__---|\n")
+    #play("4|F__---------C__-----------|\n3|------a--Fa-------C__---F-|\n")
+    #play("3|-CF-A__-------------------|\n") # NOE RART HER
+
+    play("4|--------------D__---------|\n3|------F-b--Fb-------b__---|\n")
+    play("4|D---D-F__---D__---F--DF-A__|\n3|---b-----------------------|\n")
+    play("4|---------D---D-F__-------|\n3|---A__------A------------|\n")
+    play("3|--D---D-F__---D__---F--DF-|\n2|A----A--------------------|\n")
+
+    play("4|------------------C__-----|\n3|A__---F__---A--FA-------C_|\n")
+    play("3|----F--CF-A___------F-G--e|\n")
+    play("3|G-b__-------F-G--eG-b__---|\n")
+    play("4|------------C__-----------|\n3|----F-G--eG-------F__---b-|\n")
+    play("4|----D__-------------------|\n3|-Fb-----------F-G--eG-b__-|\n")
+    play("4|--------------C__---------|\n3|------F-G--eG-------F__---|\n")
+    play("4|------D---D-F--DF-F____---|\n3|b--Fb----b----------------|\n")
+
 
 def pf(freq):
     samples = (np.sin(2*np.pi*np.arange(fs*duration)*freq/fs)).astype(np.float32)
@@ -43,8 +75,22 @@ def pf(freq):
 def p(txt):
     pf(notes[txt])
 
+def play_file(filename):
+    file1 = open(filename, 'r')
+    Lines = file1.readlines()
+    Lines.append("\n")
+    Lines.append("\n")
+
+    sometxt = ""
+    for line in Lines:
+        if (line == "\n"):
+            play(sometxt)
+            sometxt = ""
+        else:
+            sometxt += line
+
 def play(txt):
-    print(txt)
+    #print(txt)
     freqs = []
     octave = 4
     i = 0
@@ -80,29 +126,13 @@ def play(txt):
             continue
         i += 1
     for f in freqs:
-        #print(f)
+        print(f)
         pf(f)
     #input("")
 
-#play("4|--------d__---------d---d-|\n3|F-b--Fb-------b__------b--|\n")
-#play("4|F__---d__---F--dF-a__------|\n3|------------------------a__|\n")
-#play("4|---d---d-F__---------d---|\n3|------a------------a----a|\n")
-#play("4|d-F__---d__---F--dF-a__---|\n")
-#play("4|F__---------C__-----------|\n3|------a--Fa-------C__---F-|\n")
-#play("3|-CF-A__-------------------|\n") # NOE RART HER
+play_file('whitechristmas.txt')
 
-play("4|--------------D__---------|\n3|------F-b--Fb-------b__---|\n")
-play("4|D---D-F__---D__---F--DF-A__|\n3|---b-----------------------|\n")
-play("4|---------D---D-F__-------|\n3|---A__------A------------|\n")
-play("3|--D---D-F__---D__---F--DF-|\n2|A----A--------------------|\n")
-
-play("4|------------------C__-----|\n3|A__---F__---A--FA-------C_|\n")
-play("3|----F--CF-A___------F-G--e|\n")
-play("3|G-b__-------F-G--eG-b__---|\n")
-play("4|------------C__-----------|\n3|----F-G--eG-------F__---b-|\n")
-play("4|----D__-------------------|\n3|-Fb-----------F-G--eG-b__-|\n")
-play("4|--------------C__---------|\n3|------F-G--eG-------F__---|\n")
-play("4|------D---D-F--DF-F____---|\n3|b--Fb----b----------------|\n")
+#valkyries()
 
 stream.stop_stream()
 stream.close()
