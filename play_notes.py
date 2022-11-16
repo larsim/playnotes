@@ -19,7 +19,7 @@ stream = p.open(format=pyaudio.paFloat32,
 
 notes = {"F#3": 185.00}
 notes["b3"] = 246.94
-notes["b4"] = 466.16
+notes["b4"] = 493.88
 notes["g4"] = 369.99
 notes["d4"] = 293.66
 notes["e4"] = 329.63
@@ -43,6 +43,8 @@ notes["G#4"] = 392.00
 notes["D#5"] = 622.25
 notes["f5"] = 698.46
 notes["f4"] = 349.23
+notes["c4"] = 261.63
+notes["e6"] = 1318.51
 
 def valkyries():
     #play("4|--------d__---------d---d-|\n3|F-b--Fb-------b__------b--|\n")
@@ -130,7 +132,7 @@ def play(txt):
         pf(f)
     #input("")
 
-play_file('whitechristmas.txt')
+play_file('furelise.txt')
 
 #valkyries()
 
