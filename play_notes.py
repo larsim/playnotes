@@ -85,7 +85,7 @@ def play_file(filename):
 
     sometxt = ""
     for line in Lines:
-        if (line == "\n"):
+        if line == "\n":
             play(sometxt)
             sometxt = ""
         else:
