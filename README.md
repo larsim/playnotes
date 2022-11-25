@@ -7,4 +7,5 @@ https://pages.mtu.edu/~suits/notefreqs.html
 # Dependencies
 
 sudo apt install portaudio19-dev python3-pyaudio
+
 pip3 install pyaudio
